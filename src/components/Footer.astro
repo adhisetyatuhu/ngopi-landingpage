@@ -1,0 +1,65 @@
+---
+import Logo from './Logo.astro';
+import { nav, site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-brand-100 bg-white py-14">
+  <div class="container-page">
+    <div class="grid gap-10 lg:grid-cols-[1.3fr_1fr_1fr]">
+      <div>
+        <Logo />
+        <p class="mt-4 max-w-sm text-sm/7 text-ink-soft">
+          {site.description}
+        </p>
+      </div>
+
+      <nav aria-label="Tautan halaman">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-ink">Jelajahi</h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {
+            nav.map((item) => (
+              <li>
+                <a href={item.href} class="text-ink-soft transition-colors hover:text-brand-700">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="text-sm font-bold uppercase tracking-widest text-ink">Hubungi kami</h2>
+        <ul class="mt-4 space-y-2.5 text-sm text-ink-soft">
+          <li>
+            <a href={`mailto:${site.email}`} class="transition-colors hover:text-brand-700">
+              {site.email}
+            </a>
+          </li>
+          <li>
+            <a href={site.whatsapp} class="transition-colors hover:text-brand-700">
+              WhatsApp {site.phone}
+            </a>
+          </li>
+          <li>
+            <a href={site.instagram} class="transition-colors hover:text-brand-700">Instagram</a>
+          </li>
+          <li class="pt-1 leading-6">{site.address}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col gap-3 border-t border-brand-100 pt-6 text-sm text-ink-soft sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {site.name}. Seluruh hak cipta dilindungi.</p>
+      <p class="flex gap-5">
+        <!-- TODO: buat halaman kebijakan privasi & syarat layanan. -->
+        <a href="#" class="transition-colors hover:text-brand-700">Kebijakan Privasi</a>
+        <a href="#" class="transition-colors hover:text-brand-700">Syarat Layanan</a>
+      </p>
+    </div>
+  </div>
+</footer>

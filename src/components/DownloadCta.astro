@@ -1,0 +1,35 @@
+---
+import Icon from './Icon.astro';
+import StoreBadges from './StoreBadges.astro';
+---
+
+<section class="pb-20 lg:pb-28">
+  <div class="container-page">
+    <div
+      class="relative overflow-hidden rounded-4xl bg-linear-to-br from-brand-700 to-brand-900 px-8 py-14 text-white sm:px-14 sm:py-16"
+    >
+      <div class="pointer-events-none absolute inset-0 opacity-30" aria-hidden="true">
+        <div class="absolute -right-24 -top-24 size-80 rounded-full bg-brand-400/40 blur-3xl"></div>
+        <div class="absolute -bottom-28 left-10 size-72 rounded-full bg-bean-500/30 blur-3xl"></div>
+      </div>
+
+      <div class="relative max-w-2xl">
+        <span
+          class="inline-flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1.5 text-xs font-bold"
+        >
+          <Icon name="leaf" class="size-4" />
+          Gratis diunduh
+        </span>
+
+        <h2 class="mt-5 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl/[1.1]">
+          Sampahnya kami urus. Waktunya buat Anda.
+        </h2>
+        <p class="mt-4 text-lg/8 text-white/75">
+          Unduh Ngopi, pilih paket, dan jadwalkan penjemputan pertama Anda hari ini juga.
+        </p>
+
+        <StoreBadges variant="light" class="mt-8" />
+      </div>
+    </div>
+  </div>
+</section>

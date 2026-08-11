@@ -1,0 +1,226 @@
+---
+import Icon from './Icon.astro';
+import { plans, formatIDR, YEARLY_DISCOUNT_LABEL } from '../data/plans';
+import { site } from '../data/site';
+---
+
+<section id="paket" class="py-20 lg:py-28">
+  <div class="container-page">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand-600">Paket langganan</p>
+      <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
+        Pilih yang sesuai volume sampah Anda
+      </h2>
+      <p class="mt-4 text-lg/8 text-ink-soft">
+        Semua paket sudah termasuk penjemputan terjadwal, bukti foto, dan riwayat penimbangan.
+        Naik atau turun paket kapan saja.
+      </p>
+    </div>
+
+    <!-- Pengalih periode penagihan. -->
+    <div class="mt-9 flex justify-center">
+      <div
+        id="billing-toggle"
+        class="inline-flex items-center gap-1 rounded-full border border-brand-100 bg-white p-1 shadow-sm"
+        role="group"
+        aria-label="Periode penagihan"
+      >
+        <button
+          type="button"
+          data-billing="monthly"
+          aria-pressed="true"
+          class="rounded-full px-5 py-2 text-sm font-bold transition-colors"
+        >
+          Bulanan
+        </button>
+        <button
+          type="button"
+          data-billing="yearly"
+          aria-pressed="false"
+          class="rounded-full px-5 py-2 text-sm font-bold transition-colors"
+        >
+          Tahunan
+          <span class="ml-1 rounded-full bg-bean-100 px-2 py-0.5 text-[0.65rem] text-bean-700">
+            {YEARLY_DISCOUNT_LABEL}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div id="pricing-grid" class="mt-10 grid items-start gap-6 lg:grid-cols-3" data-billing="monthly">
+      {
+        plans.map((plan) => (
+          <article
+            class:list={[
+              'reveal relative flex h-full flex-col rounded-4xl p-7 sm:p-8',
+              plan.featured
+                ? 'bg-ink text-white shadow-2xl shadow-ink/20 lg:-mt-4 lg:pb-12'
+                : 'border border-brand-100 bg-white shadow-sm',
+            ]}
+          >
+            {plan.badge && (
+              <span class="absolute -top-3 left-8 rounded-full bg-bean-300 px-3 py-1 text-xs font-extrabold text-bean-700">
+                {plan.badge}
+              </span>
+            )}
+
+            <h3 class:list={['text-xl font-extrabold', plan.featured && 'text-white']}>
+              {plan.name}
+            </h3>
+            <p class:list={['mt-2 min-h-12 text-sm/6', plan.featured ? 'text-white/70' : 'text-ink-soft']}>
+              {plan.tagline}
+            </p>
+
+            <div class="mt-6">
+              <div class="flex items-baseline gap-1.5">
+                <span
+                  class:list={[
+                    'text-4xl font-extrabold tracking-tight tabular-nums',
+                    plan.featured ? 'text-white' : 'text-ink',
+                  ]}
+                  data-price
+                  data-monthly={formatIDR(plan.priceMonthly)}
+                  data-yearly={formatIDR(plan.priceMonthlyYearly)}
+                >
+                  {formatIDR(plan.priceMonthly)}
+                </span>
+                <span class:list={['text-sm font-semibold', plan.featured ? 'text-white/60' : 'text-ink-soft']}>
+                  /bulan
+                </span>
+              </div>
+              <p
+                class:list={['mt-1.5 text-xs', plan.featured ? 'text-white/60' : 'text-ink-soft']}
+                data-billing-note
+              >
+                Ditagih bulanan, bisa berhenti kapan saja
+              </p>
+            </div>
+
+            <div
+              class:list={[
+                'mt-6 rounded-2xl px-4 py-3.5',
+                plan.featured ? 'bg-white/10' : 'bg-brand-50',
+              ]}
+            >
+              <p class:list={['text-sm font-bold', plan.featured ? 'text-white' : 'text-brand-700']}>
+                {plan.quota}
+              </p>
+              <p class:list={['mt-0.5 text-xs', plan.featured ? 'text-white/60' : 'text-ink-soft']}>
+                {plan.volume}
+              </p>
+            </div>
+
+            <ul class="mt-6 flex-1 space-y-3">
+              {plan.features.map((feature) => {
+                const included = feature.included !== false;
+                return (
+                  <li class="flex items-start gap-2.5 text-sm/6">
+                    <span
+                      class:list={[
+                        'mt-0.5 grid size-5 shrink-0 place-items-center rounded-full',
+                        !included
+                          ? plan.featured
+                            ? 'bg-white/10 text-white/40'
+                            : 'bg-brand-50 text-ink-soft/50'
+                          : plan.featured
+                            ? 'bg-brand-500 text-white'
+                            : 'bg-brand-100 text-brand-700',
+                      ]}
+                    >
+                      {included ? (
+                        <Icon name="check" class="size-3" />
+                      ) : (
+                        <svg viewBox="0 0 24 24" class="size-3" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true">
+                          <path d="M5 12h14" />
+                        </svg>
+                      )}
+                    </span>
+                    <span
+                      class:list={[
+                        !included
+                          ? plan.featured
+                            ? 'text-white/40'
+                            : 'text-ink-soft/60'
+                          : plan.featured
+                            ? 'text-white/90'
+                            : 'text-ink',
+                      ]}
+                    >
+                      {feature.text}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <a
+              href={site.playStoreUrl}
+              class:list={[
+                'mt-8 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-bold transition-colors',
+                plan.featured
+                  ? 'bg-brand-500 text-white hover:bg-brand-400'
+                  : 'bg-brand-600 text-white hover:bg-brand-700',
+              ]}
+            >
+              Pilih {plan.name}
+              <Icon name="arrow" class="size-4" />
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="mt-8 text-center text-sm text-ink-soft">
+      Kelebihan volume di luar paket ditagih terpisah sesuai tarif per kg atau m³ yang berlaku,
+      dan selalu tampil di aplikasi sebelum penjemputan ditutup.
+      <br class="hidden sm:block" />
+      Butuh lebih dari paket Diamond?
+      <a href={site.whatsapp} class="font-bold text-brand-700 underline underline-offset-4">
+        Hubungi tim kami
+      </a> untuk penawaran instansi.
+    </p>
+  </div>
+</section>
+
+<script>
+  const grid = document.getElementById('pricing-grid');
+  const toggle = document.getElementById('billing-toggle');
+
+  if (grid && toggle) {
+    const buttons = toggle.querySelectorAll<HTMLButtonElement>('button[data-billing]');
+    const prices = grid.querySelectorAll<HTMLElement>('[data-price]');
+    const notes = grid.querySelectorAll<HTMLElement>('[data-billing-note]');
+
+    const NOTES = {
+      monthly: 'Ditagih bulanan, bisa berhenti kapan saja',
+      yearly: 'Ditagih setahun di muka',
+    } as const;
+
+    const apply = (mode: 'monthly' | 'yearly') => {
+      grid.dataset.billing = mode;
+
+      prices.forEach((el) => {
+        el.textContent = mode === 'yearly' ? el.dataset.yearly! : el.dataset.monthly!;
+      });
+      notes.forEach((el) => {
+        el.textContent = NOTES[mode];
+      });
+
+      buttons.forEach((button) => {
+        const on = button.dataset.billing === mode;
+        button.setAttribute('aria-pressed', String(on));
+        button.classList.toggle('bg-brand-600', on);
+        button.classList.toggle('text-white', on);
+        button.classList.toggle('text-ink-soft', !on);
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        apply(button.dataset.billing === 'yearly' ? 'yearly' : 'monthly');
+      });
+    });
+
+    apply('monthly');
+  }
+</script>

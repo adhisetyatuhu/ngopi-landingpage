@@ -1,0 +1,117 @@
+---
+import Logo from './Logo.astro';
+import { nav } from '../data/site';
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300"
+  data-scrolled="false"
+>
+  <div class="container-page flex h-18 items-center justify-between gap-4">
+    <Logo />
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Navigasi utama">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="rounded-full px-4 py-2 text-sm font-semibold text-ink-soft transition-colors hover:bg-brand-50 hover:text-brand-700"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href="#paket"
+        class="hidden rounded-full bg-brand-600 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-brand-700 sm:inline-flex"
+      >
+        Lihat Paket
+      </a>
+
+      <button
+        type="button"
+        id="menu-toggle"
+        class="grid size-11 place-items-center rounded-full text-ink lg:hidden"
+        aria-label="Buka menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg viewBox="0 0 24 24" class="size-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 7h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 17h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="container-page hidden pb-4 lg:hidden"
+  >
+    <nav
+      class="rounded-3xl border border-brand-100 bg-white p-2 shadow-xl shadow-black/5"
+      aria-label="Navigasi seluler"
+    >
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="block rounded-2xl px-4 py-3 font-semibold text-ink transition-colors hover:bg-brand-50"
+            data-menu-link
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href="#paket"
+        class="mt-1 block rounded-2xl bg-brand-600 px-4 py-3 text-center font-bold text-white"
+        data-menu-link
+      >
+        Lihat Paket
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header')!;
+  const toggle = document.getElementById('menu-toggle')!;
+  const menu = document.getElementById('mobile-menu')!;
+
+  const setScrolled = () => {
+    const scrolled = window.scrollY > 8;
+    header.classList.toggle('bg-cream/85', scrolled);
+    header.classList.toggle('backdrop-blur-md', scrolled);
+    header.classList.toggle('shadow-sm', scrolled);
+  };
+
+  setScrolled();
+  window.addEventListener('scroll', setScrolled, { passive: true });
+
+  const closeMenu = () => {
+    menu.classList.add('hidden');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Buka menu');
+  };
+
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+  });
+
+  // Menu seluler menutup sendiri setelah memilih tujuan, agar anchor-nya terlihat.
+  menu.querySelectorAll('[data-menu-link]').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) closeMenu();
+  });
+</script>

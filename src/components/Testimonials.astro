@@ -1,0 +1,35 @@
+---
+import Icon from './Icon.astro';
+import { testimonials } from '../data/site';
+---
+
+<section class="py-20 lg:py-28">
+  <div class="container-page">
+    <div class="max-w-2xl">
+      <p class="text-sm font-bold uppercase tracking-widest text-brand-600">Testimoni</p>
+      <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
+        Kata mereka yang sudah berhenti mengejar truk sampah
+      </h2>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-3">
+      {
+        testimonials.map((item) => (
+          <figure class="reveal flex h-full flex-col rounded-3xl border border-brand-100 bg-white p-7 shadow-sm">
+            <Icon name="quote" class="size-7 text-brand-200" />
+            <blockquote class="mt-4 flex-1 text-base/7 text-ink">“{item.quote}”</blockquote>
+            <figcaption class="mt-6 flex items-center gap-3 border-t border-brand-100 pt-5">
+              <span class="grid size-10 shrink-0 place-items-center rounded-full bg-brand-100 font-extrabold text-brand-700">
+                {item.name.charAt(0)}
+              </span>
+              <span>
+                <span class="block font-bold">{item.name}</span>
+                <span class="block text-sm text-ink-soft">{item.role}</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

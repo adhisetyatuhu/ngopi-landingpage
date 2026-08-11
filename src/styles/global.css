@@ -1,0 +1,94 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Hijau daun — warna utama merek. */
+  --color-brand-50: #eefbf3;
+  --color-brand-100: #d6f5e2;
+  --color-brand-200: #b0e9c8;
+  --color-brand-300: #7cd7a6;
+  --color-brand-400: #45bd80;
+  --color-brand-500: #22a165;
+  --color-brand-600: #158151;
+  --color-brand-700: #126743;
+  --color-brand-800: #125237;
+  --color-brand-900: #10432f;
+
+  /* Aksen hangat — mengangguk ke nama "Ngopi". */
+  --color-bean-100: #f7ecdd;
+  --color-bean-300: #dcb98a;
+  --color-bean-500: #b07d43;
+  --color-bean-700: #6b4423;
+
+  --color-ink: #0d1f17;
+  --color-ink-soft: #476054;
+  --color-cream: #fbf9f5;
+
+  --radius-4xl: 2rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Judul bahasa Indonesia sering panjang; pemenggalan seimbang menahan
+     "janda" satu kata di baris terakhir. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+}
+
+/* Animasi masuk saat elemen tersingkap; dimatikan bila pengguna
+   meminta gerak minimal. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}

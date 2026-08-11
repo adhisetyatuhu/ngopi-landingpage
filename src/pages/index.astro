@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Features from '../components/Features.astro';
+import Pricing from '../components/Pricing.astro';
+import Coverage from '../components/Coverage.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import DownloadCta from '../components/DownloadCta.astro';
+import Footer from '../components/Footer.astro';
+import { faqs, site } from '../data/site';
+import { plans } from '../data/plans';
+
+/**
+ * Data terstruktur untuk hasil pencarian. Harga diambil dari plans.ts supaya
+ * tidak pernah berbeda dengan yang tampil di halaman.
+ */
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: site.name,
+    description: site.description,
+    applicationCategory: 'LifestyleApplication',
+    operatingSystem: 'Android, iOS',
+    offers: plans.map((plan) => ({
+      '@type': 'Offer',
+      name: `Paket ${plan.name}`,
+      price: plan.priceMonthly,
+      priceCurrency: 'IDR',
+      description: plan.tagline,
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  },
+];
+---
+
+<Layout>
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(jsonLd)}
+  />
+
+  <Header />
+
+  <main id="konten">
+    <Hero />
+    <HowItWorks />
+    <Features />
+    <Pricing />
+    <Coverage />
+    <Testimonials />
+    <Faq />
+    <DownloadCta />
+  </main>
+
+  <Footer />
+</Layout>

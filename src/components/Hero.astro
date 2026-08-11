@@ -1,0 +1,72 @@
+---
+import Icon from './Icon.astro';
+import PhoneMock from './PhoneMock.astro';
+import StoreBadges from './StoreBadges.astro';
+import { stats } from '../data/site';
+---
+
+<section class="relative overflow-hidden pt-28 pb-16 sm:pt-32 lg:pt-36 lg:pb-24">
+  <!-- Latar dekoratif. -->
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute -left-40 -top-40 size-[34rem] rounded-full bg-brand-100/60 blur-3xl"></div>
+    <div class="absolute -right-32 top-20 size-[28rem] rounded-full bg-bean-100/70 blur-3xl"></div>
+  </div>
+
+  <div class="container-page grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
+    <div>
+      <span
+        class="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/70 px-3.5 py-1.5 text-xs font-bold text-brand-700"
+      >
+        <Icon name="leaf" class="size-4" />
+        Tersedia untuk Android & iOS
+      </span>
+
+      <h1 class="mt-5 text-4xl/[1.1] font-extrabold tracking-tight sm:text-5xl/[1.08] lg:text-6xl/[1.05]">
+        Angkut sampah jadi urusan gampang.
+        <span class="text-brand-600">Sisanya, tinggal ngopi.</span>
+      </h1>
+
+      <p class="mt-5 max-w-xl text-lg/8 text-ink-soft">
+        Pilih paket langganan, tentukan jadwal penjemputan, dan pantau petugas dari ponsel.
+        Sampah ditimbang di tempat, tercatat rapi, dan tagihannya tersusun sendiri.
+      </p>
+
+      <StoreBadges class="mt-8" />
+
+      <p class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-ink-soft">
+        <span class="inline-flex items-center gap-1.5">
+          <Icon name="check" class="size-4 text-brand-600" />
+          Tanpa biaya pendaftaran
+        </span>
+        <span class="inline-flex items-center gap-1.5">
+          <Icon name="check" class="size-4 text-brand-600" />
+          Berhenti kapan saja
+        </span>
+      </p>
+    </div>
+
+    <div class="reveal">
+      <PhoneMock />
+    </div>
+  </div>
+
+  <div class="container-page mt-16 lg:mt-24">
+    <dl
+      class="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-brand-100 bg-brand-100 text-center lg:grid-cols-4"
+    >
+      {
+        stats.map((stat) => (
+          <div class="bg-white px-4 py-7">
+            <dt class="sr-only">{stat.label}</dt>
+            <dd>
+              <span class="block text-3xl font-extrabold tracking-tight text-brand-700">
+                {stat.value}
+              </span>
+              <span class="mt-1 block text-sm text-ink-soft">{stat.label}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
