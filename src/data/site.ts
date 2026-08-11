@@ -24,7 +24,6 @@ export const nav = [
   { label: 'Cara Kerja', href: '#cara-kerja' },
   { label: 'Layanan', href: '#layanan' },
   { label: 'Paket', href: '#paket' },
-  { label: 'Area Layanan', href: '#area' },
   { label: 'FAQ', href: '#faq' },
 ] as const;
 
@@ -100,33 +99,23 @@ export const wasteTypes = [
   { title: 'Barang besar', body: 'Kasur, perabot, dan elektronik bekas.' },
 ] as const;
 
-// TODO: sesuaikan dengan area operasional yang sebenarnya.
-export const coverage = [
-  'Jln. SMA 14',
-  'Area Primajasa',
-  'ASABRI',
-  'BPHN',
-  'BKN',
-  'PGC',
-] as const;
-
 // TODO: ganti dengan testimoni asli (lengkap dengan izin publikasi).
 export const testimonials = [
   {
     quote:
-      'Dulu saya harus menunggu tukang sampah lewat dan sering terlewat. Sekarang tinggal pilih slot sore, petugasnya datang tepat waktu.',
+      'Dulu saya harus menunggu tukang sampah lewat dan sering terlewat. Sekarang tinggal cek di aplikasi, petugasnya datang sesuai jadwal.',
     name: 'Rina H.',
     role: 'Pengguna paket Regular, Cililitan',
   },
   {
     quote:
-      'Kafe kami menghasilkan sampah organik banyak setiap hari. Paket Medium pas, dan laporannya membantu kami menghitung susut bahan.',
+      'Kafe kami menghasilkan sampah organik banyak setiap hari. Paket Enterprise pas, dan laporannya membantu kami menghitung susut bahan.',
     name: 'Bagas P.',
     role: 'Pemilik kafe, Cililitan',
   },
   {
     quote:
-      'Yang paling membantu itu laporan per unit kerja. Bagian umum tidak perlu lagi rekap manual tiap akhir bulan.',
+      'Enggak perlu lagi dengar-dengar bunyi bel tukang sampah dari pagi. Tinggal atur jadwal di aplikasi, sampah dapur langsung diambil sesuai slot yang saya pilih.',
     name: 'Dwi S.',
     role: 'Ibu rumah tangga, Cililitan',
   },
