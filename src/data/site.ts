@@ -13,9 +13,9 @@ export const site = {
   // TODO: ganti dengan tautan store yang sebenarnya setelah aplikasi terbit.
   appStoreUrl: '#',
   playStoreUrl: '#',
-  whatsapp: 'https://wa.me/6281234567890',
+  whatsapp: 'https://wa.me/628123333333',
   email: 'halo@ngopi.id',
-  phone: '0812-3456-7890',
+  phone: '0812-3333-333',
   address: 'Jl. Mayjen Sutoyo No. 12, Cililitan, Jakarta Timur',
   instagram: 'https://instagram.com/ngopi.id',
 } as const;
