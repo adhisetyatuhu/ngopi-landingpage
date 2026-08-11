@@ -17,7 +17,7 @@ export const site = {
   email: 'halo@ngopi.id',
   phone: '0812-3333-333',
   address: 'Jl. Mayjen Sutoyo No. 12, Cililitan, Jakarta Timur',
-  instagram: 'https://instagram.com/ngopi.id',
+  instagram: 'https://www.instagram.com/ngopisampah',
 } as const;
 
 export const nav = [
