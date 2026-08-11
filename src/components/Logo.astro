@@ -1,41 +1,26 @@
 ---
 interface Props {
-  /** Wordmark putih untuk dipakai di atas latar gelap. */
-  light?: boolean;
   class?: string;
 }
 
-const { light = false, class: className = '' } = Astro.props;
+const { class: className = '' } = Astro.props;
+
+// Wordmark berupa raster (public/logo.png), 432×132 — tiga kali ukuran tampil
+// agar tetap tajam di layar retina. Rasio dikunci lewat width/height supaya
+// tidak ada pergeseran tata letak saat gambar selesai dimuat.
 ---
 
 <a
   href="/"
-  class:list={['group inline-flex items-center gap-2.5', className]}
+  class:list={['inline-flex items-center', className]}
   aria-label="Ngopi — beranda"
 >
-  <span
-    class="grid size-9 place-items-center rounded-xl bg-linear-to-br from-brand-500 to-brand-700 text-white shadow-sm transition-transform group-hover:-rotate-6"
-  >
-    <svg viewBox="0 0 24 24" class="size-5" fill="none" aria-hidden="true">
-      <path
-        d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"
-        stroke="currentColor"
-        stroke-width="1.9"
-        stroke-linecap="round"
-        stroke-linejoin="round"></path>
-      <path
-        d="M2 21c0-3 1.85-5.36 5.08-6"
-        stroke="currentColor"
-        stroke-width="1.9"
-        stroke-linecap="round"></path>
-    </svg>
-  </span>
-  <span
-    class:list={[
-      'text-xl font-extrabold tracking-tight',
-      light ? 'text-white' : 'text-ink',
-    ]}
-  >
-    ngopi
-  </span>
+  <img
+    src="/logo.png"
+    alt=""
+    width="432"
+    height="132"
+    class="h-11 w-auto"
+    decoding="async"
+  />
 </a>
